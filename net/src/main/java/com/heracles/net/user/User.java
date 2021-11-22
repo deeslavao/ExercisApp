@@ -1,17 +1,72 @@
 package com.heracles.net.user;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Entity(name = "User")
+@Table(
+	name = "users",
+	uniqueConstraints = {
+		@UniqueConstraint(name = "user_email_unique", columnNames = "email"),
+		@UniqueConstraint(name = "user_nick_name_unique", columnNames = "nick_name")
+	}
+)
 public class User {
 	
+	@Id
+	@Column(
+		name = "id",
+		columnDefinition = "uuid DEFAULT uuid_generate_v4()",
+		unique = true,
+		nullable = false
+	)
 	private UUID id;
-	private String name;			// Se debe ingresar primero los nombre y continuo los apellidos
+	@Column(
+		name = "name",
+		nullable = false,
+		updatable = false,
+		columnDefinition = "TEXT"
+	)
+	private String name; // Se debe ingresar primero los nombre y continuo los apellidos
+	@Column(
+		name = "data_of_birth",
+		updatable = false,
+		nullable = false
+	)
 	private LocalDate dateOfBirth;
+	@Column(
+		name = "email",
+		nullable = false
+	)
 	private String email;
-	private String userName;
+	@Column(
+		name = "nick_name",
+		nullable = false
+	)
+	private String nickName;
+	@Column(
+		name = "password",
+		nullable = false,
+		columnDefinition = "TEXT"
+	)
 	private String password;
+	@Column(
+		name = "weight",
+		precision = 3,
+		updatable = true
+	)
 	private float weight;
+	@Column(
+		name = "height",
+		precision = 3,
+		updatable = true
+	)
 	private float height;
 
 	public User() {
@@ -23,7 +78,7 @@ public class User {
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
 		this.email = email;
-		this.userName = userName;
+		this.nickName = userName;
 		this.password = password;
 		this.weight = weight;
 		this.height = height;
@@ -62,11 +117,11 @@ public class User {
 	}
 
 	public String getUserName() {
-		return this.userName;
+		return this.nickName;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.nickName = userName;
 	}
 
 	public String getPassword() {

@@ -22,11 +22,10 @@ public class User {
 	@Id
 	@Column(
 		name = "id",
-		columnDefinition = "uuid DEFAULT uuid_generate_v4()",
 		unique = true,
 		nullable = false
 	)
-	private UUID id;
+	private String id;
 	@Column(
 		name = "name",
 		nullable = false,
@@ -74,7 +73,7 @@ public class User {
 
 	public User(String name, LocalDate dateOfBirth, String email, String userName, String password,
 			float weight, float height) {
-		this.id = UUID.randomUUID();
+		this.id = UUID.randomUUID().toString();
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
 		this.email = email;
@@ -84,11 +83,11 @@ public class User {
 		this.height = height;
 	}
 
-	public UUID getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
